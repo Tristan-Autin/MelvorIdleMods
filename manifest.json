@@ -1,0 +1,7 @@
+{
+  "name": "Select Easy Slayer Task",
+  "description": "A selector listing all easy slayer tasks is added to the slayer task window. Allows you to choose a desired task",
+  "version": "1.0.1",
+  "origin": "select-easy-slayer-task",
+  "id": "select-easy-slayer-task"
+}
