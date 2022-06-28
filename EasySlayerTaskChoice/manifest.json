@@ -1,7 +1,7 @@
 {
   "name": "Select Easy Slayer Task",
   "description": "A mod that adds a select button in the slayer task window. It allows you to select a task among all the easy tasks listed",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "origin": "select-easy-slayer-task",
   "id": "select-easy-slayer-task"
 }
