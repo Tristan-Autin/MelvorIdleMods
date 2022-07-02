@@ -2,6 +2,9 @@
 
 A mod that adds a select button in the slayer task window. It allows you to select a task among all the easy tasks listed
 
+### V1.0.3
+
+After choosing a task, a button appears and allows you to reload the same task.
 
 ### V1.0.3
 
