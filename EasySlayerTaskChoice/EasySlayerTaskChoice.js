@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            Select Easy Slayer Task
-// @version         1.0.4
+// @version         1.0.5
 // @license         MIT
 // @description     A selector listing all easy slayer tasks is added to the slayer task window. Allows you to choose a desired task.
 // @author          Tristan-Autin

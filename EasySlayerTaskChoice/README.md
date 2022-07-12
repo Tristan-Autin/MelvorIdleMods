@@ -1,8 +1,12 @@
-# Easy slayer task choice V1.0.3
+# Easy slayer task choice V1.0.5
 
 A mod that adds a select button in the slayer task window. It allows you to select a task among all the easy tasks listed
 
-### V1.0.3
+### V1.0.5
+
+After choosing a task, a button appears and allows you to enable or desable auto realod task. Auto realod when the task is less than 5.
+
+### V1.0.4
 
 After choosing a task, a button appears and allows you to reload the same task.
 
