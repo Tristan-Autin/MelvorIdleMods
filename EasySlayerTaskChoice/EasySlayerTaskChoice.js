@@ -18,20 +18,15 @@ function EasySlayerTaskChoice() {
   const MONSTER_SLAYER_IDS = [18, 20];
   let ACTUAL_MONSTER_ID;
 
+  let slayerText = document.getElementById("combat-slayer-task-name");
+  let autoReload = false;
+
+  let easySlayerTaskContainer = document.createElement("div");
+  easySlayerTaskContainer.classList.add(...["mt-3", "mb-3", "w-100"]);
+
   let select = document.createElement("button");
   let optionsContainer = document.createElement("div");
-  select.classList.add(
-    ...[
-      "btn",
-      "btn-sm",
-      "btn-secondary",
-      "dropdown-toggle",
-      "mt-3",
-      "mb-3",
-      "w-70",
-      "mr-3",
-    ]
-  );
+  select.classList.add(...["btn", "btn-secondary", "dropdown-toggle", "w-100"]);
   select.setAttribute("data-toggle", "dropdown");
   select.innerHTML = "Choose your task";
   optionsContainer.classList.add(
@@ -43,23 +38,27 @@ function EasySlayerTaskChoice() {
   );
   let reloadBtn = document.createElement("button");
   reloadBtn.classList.add(
-    ...[
-      "btn",
-      "btn-sm",
-      "btn-secondary",
-      "mt-3",
-      "mb-3",
-      "w-25",
-      "ml-3",
-      "d-none",
-    ]
+    ...["btn", "btn-secondary", "w-100", "mt-3", "d-none"]
   );
+
+  let enableReload = document.createElement("button");
+  enableReload.classList.add(
+    ...["btn", "btn-secondary", "mt-3", "w-100", "d-none", "btn-danger"]
+  );
+  enableReload.innerHTML = "Enable auto reload : false";
+  enableReload.addEventListener("click", () => setEnableAutoReload());
+
   reloadBtn.innerHTML = "Reload";
   reloadBtn.addEventListener("click", () => setNewEasyTask(ACTUAL_MONSTER_ID));
 
-  combatManager.slayerTask.extendContainer.appendChild(select);
-  combatManager.slayerTask.extendContainer.appendChild(optionsContainer);
-  combatManager.slayerTask.extendContainer.appendChild(reloadBtn);
+  easySlayerTaskContainer.append(
+    select,
+    optionsContainer,
+    reloadBtn,
+    enableReload
+  );
+
+  combatManager.slayerTask.extendContainer.appendChild(easySlayerTaskContainer);
 
   for (let i = 0; i < MONSTER_IDS.length; i++) {
     let MONSTER_NAME = getMonsterName(MONSTER_IDS[i]);
@@ -89,6 +88,34 @@ function EasySlayerTaskChoice() {
     return option;
   }
 
+  function setEnableAutoReload() {
+    autoReload = !autoReload;
+    if (autoReload) {
+      enableReload.classList.remove("btn-danger");
+      enableReload.classList.add(...["btn-success"]);
+      enableReload.innerHTML = "Enable auto reload : true";
+    } else {
+      enableReload.classList.remove("btn-success");
+      enableReload.classList.add(...["btn-danger"]);
+      enableReload.innerHTML = "Enable auto reload : false";
+    }
+  }
+
+  slayerText.addEventListener(
+    "DOMNodeInserted",
+    function (event) {
+      if (autoReload) {
+        var numberOfTask = slayerText.innerHTML
+          .replace(/^\D+/g, "")
+          .slice(0, 2);
+        if (numberOfTask < 5) {
+          setNewEasyTask(ACTUAL_MONSTER_ID);
+        }
+      }
+    },
+    false
+  );
+
   function setNewEasyTask(id) {
     ACTUAL_MONSTER_ID = id;
     const slayerShopItem = 5;
@@ -111,12 +138,14 @@ function EasySlayerTaskChoice() {
       while (combatManager.slayerTask.monster.id != id) {
         combatManager.slayerTask.selectTask(0, false, false);
         reloadBtn.classList.remove("d-none");
+        enableReload.classList.remove("d-none");
       }
     }
 
     while (combatManager.slayerTask.monster.id != id) {
       combatManager.slayerTask.selectTask(0, false, false);
       reloadBtn.classList.remove("d-none");
+      enableReload.classList.remove("d-none");
     }
   }
 }
@@ -134,5 +163,5 @@ function EasySlayerTaskChoice() {
     }
   }
 
-  const scriptLoader = setInterval(loadScript, 250);
+  const scriptLoader = setInterval(loadScript, 5000);
 })();
